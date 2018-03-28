@@ -67,7 +67,7 @@ RUN wget -q https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-
 
 RUN mkdir -p /var/run/redis && \
     wget -q \
-    https://gist.github.com/pich4ya/c609c6f2a0d0e64be301b713d27c3b47 \
+    https://gist.githubusercontent.com/pich4ya/c609c6f2a0d0e64be301b713d27c3b47/raw/d664cf3dfa7ac30d68e0d666528acc1bfee3c15f/openvas-check-setup.sh \
       -O /openvas-check-setup && \
     chmod +x /openvas-check-setup && \
     sed -i 's/DAEMON_ARGS=""/DAEMON_ARGS="-a 0.0.0.0"/' /etc/init.d/openvas-manager && \
@@ -84,6 +84,12 @@ RUN mkdir -p /var/run/redis && \
     service openvas-manager stop && \
     service openvas-gsa stop && \
     service redis-server stop
+
+RUN wget https://gist.githubusercontent.com/pich4ya/fe6d62faeaa6d02d72a81c72cd7ae708/raw/bacc24d23647906a16c746a952aa76c9b9828142/gistfile1.txt && \
+    gpg --homedir=/var/lib/openvas/gnupg --gen-key --batch < gistfile1.txt && \
+    gpg --homedir=/var/lib/openvas/gnupg --import /var/lib/openvas/gnupg/OpenVAS_TI.asc && \
+    gpg --homedir=/var/lib/openvas/gnupg --yes --lsign-key 48DB4530 && \
+    rm gistfile1.txt
 
 CMD /start
 EXPOSE 6443 9390
