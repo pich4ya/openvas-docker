@@ -85,11 +85,14 @@ RUN mkdir -p /var/run/redis && \
     service openvas-gsa stop && \
     service redis-server stop
 
-RUN wget https://gist.githubusercontent.com/pich4ya/fe6d62faeaa6d02d72a81c72cd7ae708/raw/bacc24d23647906a16c746a952aa76c9b9828142/gistfile1.txt && \
-    gpg --homedir=/var/lib/openvas/gnupg --gen-key --batch < gistfile1.txt && \
-    gpg --homedir=/var/lib/openvas/gnupg --import /var/lib/openvas/gnupg/OpenVAS_TI.asc && \
-    gpg --homedir=/var/lib/openvas/gnupg --yes --lsign-key 48DB4530 && \
-    rm gistfile1.txt
+#RUN wget https://gist.githubusercontent.com/pich4ya/81d64e13cb1226a4ed9def4089bed12f/raw/87819092758a60c55f4bf818476309bb6cec9dd2/pgpbatch.txt && \
+#    gpg --homedir=/var/lib/openvas/gnupg --gen-key --batch < pgpbatch.txt && \
+#    wget http://www.openvas.org/OpenVAS_TI.asc -O /var/lib/openvas/gnupg/OpenVAS_TI.asc && \
+#    chmod 600 /var/lib/openvas/gnupg/* && \
+#    chmod 700 /var/lib/openvas/gnupg && \
+#    gpg --homedir=/var/lib/openvas/gnupg --import /var/lib/openvas/gnupg/OpenVAS_TI.asc && \
+#    gpg --homedir=/var/lib/openvas/gnupg --yes --lsign-key 48DB4530 && \
+#    rm pgpbatch.txt
 
 CMD /start
 EXPOSE 6443 9390
