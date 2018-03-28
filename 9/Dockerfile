@@ -76,6 +76,9 @@ RUN mkdir -p /var/run/redis && \
     greenbone-nvt-sync > /dev/null && \
     greenbone-scapdata-sync > /dev/null && \
     greenbone-certdata-sync > /dev/null && \
+    wget http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml  && \
+    openvas-portnames-update service-names-port-numbers.xml && \
+    rm service-names-port-numbers.xml  && \
     BUILD=true /start && \
     service openvas-scanner stop && \
     service openvas-manager stop && \
